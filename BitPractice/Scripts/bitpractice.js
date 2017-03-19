@@ -1,10 +1,9 @@
-﻿console.log('bitpractice.js loaded');
-
+﻿
 var tag = document.createElement('script');
-tag.src = "http://www.youtube.com/player_api";
+tag.src = "https://www.youtube.com/player_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-var player, startTime, endTime;
+var player, startTime, endTime, timeInterval, vid;
 
 function onYouTubePlayerAPIReady() {
     player = new YT.Player('player', {
@@ -22,12 +21,24 @@ function onYouTubePlayerAPIReady() {
 }
 
 function SetVideoId() {
-    var vid = $("#videoid").val();
+
+    clearInterval(timeInterval);
+
+    vid = $("#videoid").val();
+    startTime = convertTime($("#startTime").val());
+    endTime = convertTime($("#endTime").val());
+ 
+    timeInterval = setInterval(function () {
+        GetTime();
+    }, 0);
+
     player.cueVideoById(vid);
+    player.seekTo(startTime);
+    player.playVideo();
 }
 
 function onPlayerReady(event) {
-    setInterval(function () {
+    timeInterval = setInterval(function () {
         GetTime();
     }, 0);
     event.target.playVideo();
