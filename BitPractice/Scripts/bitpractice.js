@@ -97,58 +97,13 @@ $('.bitSelector').click(
         e.preventDefault;
         $('.highlight').removeClass('highlight');
         $(this).addClass('highlight');
-        var id = $(this).attr('id');
-        var bitSpanDiv = $(this).html();
-
-        $('input', bitSpanDiv).each(function (index) {
-
-            console.log($(this).val());
-
-            if (index % 2 == 0) {
-                //bitStart = $(this).val().toString();
-                console.log($(this).val());
-                startTime = convertTime($(this).val());
-            }
-            else {
-                //bitEnd = $(this).val().toString();   
-                console.log($(this).val());
-                endTime = convertTime($(this).val());
-            }
-        })
-
+        var inputs = $(this).find("input");
+        startTime = convertTime($(inputs[0]).val());
+        endTime = convertTime($(inputs[1]).val());
         player.seekTo(startTime);
     });
 
 
 $(document).ready(function () {
-
-    //$(".add-more").click(function () {
-    //    //var html = $(".copy").html();
-    //    var html = $(".copy").clone();
-    //    //var result = $('input', html);
-
-    //    $('input', html).each(function () {
-
-    //        console.log($(this).val());
-
-    //        $(this).val('0:00');
-
-    //        if (bitCount % 2 == 0) {
-    //            $(this).attr('id', 'end' + bitCount);
-    //        }
-    //        else {
-    //            $(this).attr('id', 'start' + bitCount);
-    //        }
-    //        //arrNumber.push($(this).val());
-    //        bitCount += 1;
-    //    })
-    //    // .appendTo
-    //    //$(".after-add-more").after(html);
-
-    //    html.appendTo(".after-add-more");
-    //});
-
-    //$("body").on("click", ".remove", function () {
-    //    $(this).parents(".control-group").remove();
-    //});
+    //
 });
