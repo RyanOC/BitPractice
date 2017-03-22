@@ -21,24 +21,97 @@
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
     </div>*@
-    <div class="col-md-4">
-        <h2>Bits</h2>
-        <p>
 
-            Loop Time:
-            <input type="text" id="startTime" value="2:27.3" size="10" /> -
-            <input type="text" id="endTime" value="2:34.1" size="10" />
-            <a href="#" id="seek" onclick="javascript:reset();">set</a>
+    <div class="container col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Bits <a href="#"  class="btn btn-primary btn-sm" id="seek" onclick="javascript:reset();">reset</a></div>
+            <div class="panel-body">
 
-        </p>
+            
+
+            <div id="bit1" class="input-group control-group after-add-more bitSelector">
+                <div class="col-sm-6">
+                    <input id="startTime" type="text" name="addmore[]" class="form-control" placeholder="Start" value="2:27.3">
+                    </div>
+                <div class="col-sm-6">
+                    <input id="endTime" type="text" name="addmore[]" class="form-control" placeholder="End" value="2:34.1">
+                </div>
+            </div>
+
+            <div id="bit2" class="input-group control-group after-add-more bitSelector">
+                <div class="col-sm-6">
+                    <input id="startTime" type="text" name="addmore[]" class="form-control" placeholder="Start" value="2:34.0">
+                </div>
+                <div class="col-sm-6">
+                    <input id="endTime" type="text" name="addmore[]" class="form-control" placeholder="End" value="2:39.0">
+                </div>
+            </div>
+
+            <div id="bit3" class="input-group control-group after-add-more bitSelector">
+                <div class="col-sm-6">
+                    <input id="rootStart" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
+                </div>
+                <div class="col-sm-6">
+                    <input id="rootEnd" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
+                </div>
+            </div>
+
+            <div id="bit4" class="input-group control-group after-add-more bitSelector">
+                <div class="col-sm-6">
+                    <input id="rootStart" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
+                </div>
+                <div class="col-sm-6">
+                    <input id="rootEnd" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
+                </div>
+            </div>
+
+            <div id="bit5" class="input-group control-group after-add-more bitSelector">
+                <div class="col-sm-6">
+                    <input id="rootStart" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
+                </div>
+                <div class="col-sm-6">
+                    <input id="rootEnd" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
+                </div>
+            </div>
+            <div id="bit6" class="input-group control-group after-add-more bitSelector">
+                <div class="col-sm-6">
+                    <input id="rootStart" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
+                </div>
+                <div class="col-sm-6">
+                    <input id="rootEnd" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
+                </div>
+            </div>
+            <div id="bit7" class="input-group control-group after-add-more bitSelector">
+                <div class="col-sm-6">
+                    <input id="rootStart" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
+                </div>
+                <div class="col-sm-6">
+                    <input id="rootEnd" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
+                </div>
+            </div>
+            <div id="bit8" class="input-group control-group after-add-more bitSelector">
+                <div class="col-sm-6">
+                    <input id="rootStart" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
+                </div>
+                <div class="col-sm-6">
+                    <input id="rootEnd" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
+                </div>
+            </div>
+
+            </div>
+        </div>
+
+
     </div>
+
+
     <div class="col-md-8">
         <h2>Practice</h2>
         <p>
             YouTube Video Id:
             <input type="text" id="videoid" value="2om9HkZ89G4" size="10" />
             <a href="#" id="seek" onclick="javascript:SetVideoId();">set</a>
-            <div id="player"></div><br /><br />
+            <div id="player"></div><br />
             Current Seconds: <span id="currentSeconds"></span><br>
             Current Time: <span id="currentTime"></span><br>
             
