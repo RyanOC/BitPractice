@@ -17,5 +17,39 @@ textarea {
 }
 
 .highlight {
-    background-color: #00ff00;
+    background-color: #fff;
+}
+
+.bitSelector {
+    margin-left: -15px;
+    margin-right: -15px;
+    padding: 0 15px 0 35px;
+}
+
+.bottomResetButton {
+    float: right;
+    margin: 20px 15px 0 0;
+}
+
+
+/* http://astronautweb.co/snippet/font-awesome/ */
+
+.activeFont:before {
+    font-family: FontAwesome;
+    content: "\f00c";
+    display: inline-block;
+    padding-right: 3px;
+    vertical-align: middle;
+    position: absolute;
+    margin: 8px 0 0-30px;
+}
+
+.inactiveFont:before {
+    font-family: FontAwesome;
+    content: "\f10c";
+    display: inline-block;
+    padding-right: 3px;
+    vertical-align: middle;
+    position: absolute;
+    margin: 8px 0 0-30px;
 }

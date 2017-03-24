@@ -89,21 +89,47 @@ $(window).load(function () {
     //});
 });
 
-
-
-
 $('.bitSelector').click(
     function (e) {
         e.preventDefault;
+        var inputs = $(this).find("input");
+
+        if ($(inputs[0]).val() == "0:00" && $(inputs[1]).val() == "0:00") {
+            //TODO: alert user to choose a valid timespan
+            return;
+        }
+        else {
+            startTime = convertTime($(inputs[0]).val());
+            endTime = convertTime($(inputs[1]).val());
+        }
+
         $('.highlight').removeClass('highlight');
         $(this).addClass('highlight');
-        var inputs = $(this).find("input");
-        startTime = convertTime($(inputs[0]).val());
-        endTime = convertTime($(inputs[1]).val());
+
+        //toggle class: activeFont and inactiveFont on child div
+        $('.activeStatus').removeClass('activeFont');
+        $('.activeStatus').addClass('inactiveFont');
+        $(this).find(".activeStatus").removeClass('inactiveFont');
+        $(this).find(".activeStatus").addClass('activeFont');
+
+        
+
+   
+        
+
+
         player.seekTo(startTime);
     });
 
 
 $(document).ready(function () {
-    //
+
+    $('input').on('click', function () {
+        return false;
+    });
+
+
+
+
+
 });

@@ -25,12 +25,15 @@
     <div class="container col-md-4">
         <div class="panel panel-default">
             <div class="panel-heading">Bits</div>
+
+
+
             <div class="panel-body">
 
-
-
                 <div id="bit1" class="input-group control-group after-add-more bitSelector">
+                    
                     <div class="col-sm-6">
+                        <div class="activeStatus activeFont"></div>
                         <input id="startTime" type="text" name="addmore[]" class="form-control" placeholder="Start" value="2:27.3">
                     </div>
                     <div class="col-sm-6">
@@ -40,6 +43,7 @@
 
                 <div id="bit2" class="input-group control-group after-add-more bitSelector">
                     <div class="col-sm-6">
+                        <div class="activeStatus inactiveFont"></div>
                         <input id="startTime" type="text" name="addmore[]" class="form-control" placeholder="Start" value="2:34.0">
                     </div>
                     <div class="col-sm-6">
@@ -49,6 +53,7 @@
 
                 <div id="bit3" class="input-group control-group after-add-more bitSelector">
                     <div class="col-sm-6">
+                        <div class="activeStatus inactiveFont"></div>
                         <input id="rootStart" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
                     </div>
                     <div class="col-sm-6">
@@ -58,6 +63,7 @@
 
                 <div id="bit4" class="input-group control-group after-add-more bitSelector">
                     <div class="col-sm-6">
+                        <div class="activeStatus inactiveFont"></div>
                         <input id="rootStart" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
                     </div>
                     <div class="col-sm-6">
@@ -67,6 +73,7 @@
 
                 <div id="bit5" class="input-group control-group after-add-more bitSelector">
                     <div class="col-sm-6">
+                        <div class="activeStatus inactiveFont"></div>
                         <input id="rootStart" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
                     </div>
                     <div class="col-sm-6">
@@ -75,6 +82,7 @@
                 </div>
                 <div id="bit6" class="input-group control-group after-add-more bitSelector">
                     <div class="col-sm-6">
+                        <div class="activeStatus inactiveFont"></div>
                         <input id="rootStart" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
                     </div>
                     <div class="col-sm-6">
@@ -83,6 +91,7 @@
                 </div>
                 <div id="bit7" class="input-group control-group after-add-more bitSelector">
                     <div class="col-sm-6">
+                        <div class="activeStatus inactiveFont"></div>
                         <input id="rootStart" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
                     </div>
                     <div class="col-sm-6">
@@ -91,6 +100,7 @@
                 </div>
                 <div id="bit8" class="input-group control-group after-add-more bitSelector">
                     <div class="col-sm-6">
+                        <div class="activeStatus inactiveFont"></div>
                         <input id="rootStart" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
                     </div>
                     <div class="col-sm-6">
@@ -98,31 +108,21 @@
                     </div>
                 </div>
 
-                <a href="#" class="btn btn-primary btn-sm" id="seek" onclick="javascript:reset();">reset</a>
+                <a href="#" class="btn btn-primary btn-sm bottomResetButton" id="seek" onclick="javascript:reset();">reset</a>
             </div>
         </div>
-
-
     </div>
-
-
-
     <div class="container col-md-8">
         <div class="panel panel-default">
             <div class="panel-heading">Practice</div>
             <div class="panel-body">
-
                 YouTube Video Id:
                 <input type="text" id="videoid" value="2om9HkZ89G4" size="10" />
                 <a href="#" id="seek" onclick="javascript:SetVideoId();">set</a><br />
                 <div id="player"></div><br />
                 Current Seconds: <span id="currentSeconds"></span><br>
                 Current Time: <span id="currentTime"></span><br>
-
-
             </div>
         </div>
     </div>
-
-  
-            </div>
+</div>
