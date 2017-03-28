@@ -1,5 +1,4 @@
-﻿
-var tag = document.createElement('script');
+﻿var tag = document.createElement('script');
 tag.src = "https://www.youtube.com/player_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
@@ -7,17 +6,15 @@ var player, startTime, endTime, timeInterval, vid;
 var bitStart = $("#startTime").val();
 var bitEnd = $("#endTime").val();
 
+//Youtube api reference: https://developers.google.com/youtube/iframe_api_reference#Events
 function onYouTubePlayerAPIReady() {
     player = new YT.Player('player', {
         height: '200',
         width: '300',
-        videoId: $("#videoid").val(), //'2om9HkZ89G4',
-        //'loop': 1,
-        //'start': 25.5,
-        //'end': 26,
-        //'autoplay': 1,        
+        videoId: $("#videoid").val(),     
         events: {
-            'onReady': onPlayerReady
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
         }
     });
 }
@@ -43,12 +40,17 @@ function onPlayerReady(event) {
     timeInterval = setInterval(function () {
         GetTime();
     }, 0);
-    event.target.playVideo();
-    //player.setPlaybackRate(0.5);
-    //startTime = convertTime('1:24.6');
-    //endTime = convertTime('1:28.5');
-    //alert(startTime + " - " + endTime);    
+    event.target.playVideo(); 
     player.seekTo(startTime);
+}
+
+function onPlayerStateChange(e) {
+
+    //console.log(e);
+
+    if (e.data == 1) {
+        // 
+    }
 }
 
 function GetTime() {
@@ -74,20 +76,59 @@ function convertTime(input) {
 }
 
 function reset() {
+    window.location.hash = '';
     startTime = convertTime($("#startTime").val());
     endTime = convertTime($("#endTime").val());
     player.seekTo(startTime); //parseFloat($("#seekto").val()));
 }
 
+function LoadState() {
+
+    var hash = window.location.hash.substr(1);
+
+    // Decode the String
+    var decodedString = Base64.decode(hash);
+    console.log(decodedString);
+    console.log(JSON.parse(decodedString));
+
+    //TODO: load inputs with decoded hash object values
+}
+
+function SaveState() {
+
+    //TODO: save previous state in history https://developer.mozilla.org/en-US/docs/Web/API/History_API
+
+    var form = { title: "Cool Video Title", videoId: "O8wwnhdkPE4", bits: [["2:00", "2:10"], ["3:00", "3:10"], ["4:00", "4:10"], ["5:00", "5:10"], ["6:00", "6:10"], ["7:00", "7:10"], ["8:00", "8:10"], ["9:00", "9:10"]] }
+    //TODO: build object from form inputs
+
+    // Encode the String
+    var encodedString = Base64.encode(JSON.stringify(form));
+
+    setTimeout(function (e) {
+        window.location.hash = e;
+    }, 1, encodedString);
+
+
+    //window.location.hash = '' + encodedString;
+    //var hash = window.location.hash.substr(1);
+    //console.log(hash);
+    
+}
+
 $(window).load(function () {
-    //jQuery('#seek').click(function(){
     startTime = convertTime(bitStart);
     endTime = convertTime(bitEnd);
-    player.seekTo(startTime); //parseFloat($("#seekto").val()));
-    //player.setPlaybackRate(0.5); // 0.25, 0.5, 1, 1.5, and 2
-    //return false;
-    //});
+    setTimeout(function (e) {
+        player.seekTo(e);
+        //player.setPlaybackRate(0.5); // 0.25, 0.5, 1, 1.5, and 2
+    }, 1000, startTime); //HACK: Use an event to detect when player is ready to call seekTo
 });
+
+$('.save').click(
+    function (e) {
+        e.preventDefault;
+        SaveState();
+    });
 
 $('.bitSelector').click(
     function (e) {
@@ -112,24 +153,106 @@ $('.bitSelector').click(
         $(this).find(".activeStatus").removeClass('inactiveFont');
         $(this).find(".activeStatus").addClass('activeFont');
 
-        
-
-   
-        
-
-
         player.seekTo(startTime);
     });
 
-
 $(document).ready(function () {
-
     $('input').on('click', function () {
         return false;
     });
 
-
-
-
-
+    if (window.location.hash.substr(1).length > 0){
+        LoadState();
+    }
 });
+
+var Base64 = {
+    _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+    encode: function (e) {
+        var t = "";
+        var n, r, i, s, o, u, a;
+        var f = 0;
+        e = Base64._utf8_encode(e);
+        while (f < e.length) {
+            n = e.charCodeAt(f++);
+            r = e.charCodeAt(f++);
+            i = e.charCodeAt(f++);
+            s = n >> 2;
+            o = (n & 3) << 4 | r >> 4;
+            u = (r & 15) << 2 | i >> 6;
+            a = i & 63;
+            if (isNaN(r)) {
+                u = a = 64
+            } else if (isNaN(i)) {
+                a = 64
+            }
+            t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a)
+        }
+        return t
+    },
+    decode: function (e) {
+        var t = "";
+        var n, r, i;
+        var s, o, u, a;
+        var f = 0;
+        e = e.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+        while (f < e.length) {
+            s = this._keyStr.indexOf(e.charAt(f++));
+            o = this._keyStr.indexOf(e.charAt(f++));
+            u = this._keyStr.indexOf(e.charAt(f++));
+            a = this._keyStr.indexOf(e.charAt(f++));
+            n = s << 2 | o >> 4;
+            r = (o & 15) << 4 | u >> 2;
+            i = (u & 3) << 6 | a;
+            t = t + String.fromCharCode(n);
+            if (u != 64) {
+                t = t + String.fromCharCode(r)
+            }
+            if (a != 64) {
+                t = t + String.fromCharCode(i)
+            }
+        }
+        t = Base64._utf8_decode(t);
+        return t
+    },
+    _utf8_encode: function (e) {
+        e = e.replace(/\r\n/g, "\n");
+        var t = "";
+        for (var n = 0; n < e.length; n++) {
+            var r = e.charCodeAt(n);
+            if (r < 128) {
+                t += String.fromCharCode(r)
+            } else if (r > 127 && r < 2048) {
+                t += String.fromCharCode(r >> 6 | 192);
+                t += String.fromCharCode(r & 63 | 128)
+            } else {
+                t += String.fromCharCode(r >> 12 | 224);
+                t += String.fromCharCode(r >> 6 & 63 | 128);
+                t += String.fromCharCode(r & 63 | 128)
+            }
+        }
+        return t
+    },
+    _utf8_decode: function (e) {
+        var t = "";
+        var n = 0;
+        var r = c1 = c2 = 0;
+        while (n < e.length) {
+            r = e.charCodeAt(n);
+            if (r < 128) {
+                t += String.fromCharCode(r);
+                n++
+            } else if (r > 191 && r < 224) {
+                c2 = e.charCodeAt(n + 1);
+                t += String.fromCharCode((r & 31) << 6 | c2 & 63);
+                n += 2
+            } else {
+                c2 = e.charCodeAt(n + 1);
+                c3 = e.charCodeAt(n + 2);
+                t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63);
+                n += 3
+            }
+        }
+        return t
+    }
+}

@@ -109,6 +109,7 @@
                 </div>
 
                 <a href="#" class="btn btn-primary btn-sm bottomResetButton" id="seek" onclick="javascript:reset();">reset</a>
+                <a href="#" class="btn btn-primary btn-sm bottomResetButton save" id="save">save</a>
             </div>
         </div>
     </div>
@@ -117,7 +118,9 @@
             <div class="panel-heading">Practice</div>
             <div class="panel-body">
                 YouTube Video Id:
-                <input type="text" id="videoid" value="2om9HkZ89G4" size="10" />
+                <input type="text" id="videoid" value="2om9HkZ89G4" size="10" /><br />
+                Title:
+                <input type="text" id="title" value="My Title" size="10" />
                 <a href="#" id="seek" onclick="javascript:SetVideoId();">set</a><br />
                 <div id="player"></div><br />
                 Current Seconds: <span id="currentSeconds"></span><br>
