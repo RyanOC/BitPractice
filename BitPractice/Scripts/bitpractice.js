@@ -3,8 +3,8 @@ tag.src = "https://www.youtube.com/player_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player, startTime, endTime, timeInterval, vid;
-var bitStart = $("#startTime").val();
-var bitEnd = $("#endTime").val();
+var bitStart = '0:00'; //$("#startTime0").val();
+var bitEnd = '0:00'; //$("#endTime0").val();
 
 //Youtube api reference: https://developers.google.com/youtube/iframe_api_reference#Events
 function onYouTubePlayerAPIReady() {
@@ -89,20 +89,44 @@ function LoadState() {
     // Decode the String
     var decodedString = Base64.decode(hash);
     console.log(decodedString);
-    console.log(JSON.parse(decodedString));
+
+    var formData = JSON.parse(decodedString);
+
+    console.log(formData);
 
     //TODO: load inputs with decoded hash object values
+
+    for (var i = 0, len = formData.length; i < len; i++) {
+
+        var key = Object.keys(formData[i])[0];
+        var value = Object.values(formData[i])[0];
+
+        //console.log(key + ":" + value);
+
+        $("#" + key).val(value)
+
+    }
+
 }
 
 function SaveState() {
 
     //TODO: save previous state in history https://developer.mozilla.org/en-US/docs/Web/API/History_API
 
-    var form = { title: "Cool Video Title", videoId: "O8wwnhdkPE4", bits: [["2:00", "2:10"], ["3:00", "3:10"], ["4:00", "4:10"], ["5:00", "5:10"], ["6:00", "6:10"], ["7:00", "7:10"], ["8:00", "8:10"], ["9:00", "9:10"]] }
+    //var form1 = $("#form :input");
+
+    var formData = [];
+
+    $("#form :input").each(function (index) {
+        var key = $(this).attr('id');
+        formData.push({ [key]: $(this).val() });
+    });
+
+    //var form = { title: "Cool Video Title", videoId: "O8wwnhdkPE4", bits: [["2:00", "2:10"], ["3:00", "3:10"], ["4:00", "4:10"], ["5:00", "5:10"], ["6:00", "6:10"], ["7:00", "7:10"], ["8:00", "8:10"], ["9:00", "9:10"]] }
     //TODO: build object from form inputs
 
     // Encode the String
-    var encodedString = Base64.encode(JSON.stringify(form));
+    var encodedString = Base64.encode(JSON.stringify(formData));
 
     setTimeout(function (e) {
         window.location.hash = e;
@@ -163,8 +187,31 @@ $(document).ready(function () {
 
     if (window.location.hash.substr(1).length > 0){
         LoadState();
+
+        bitStart = $("#startTime0").val();
+        bitEnd = $("#endTime0").val();
+
+
     }
 });
+
+
+function locationHashChanged() {
+    if (window.location.hash.substr(1).length > 0) {
+        LoadState();
+        bitStart = $("#startTime0").val();
+        bitEnd = $("#endTime0").val();
+
+        //TODO: start video...
+
+        SetVideoId();
+
+
+    }
+}
+
+window.onhashchange = locationHashChanged;
+
 
 var Base64 = {
     _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",

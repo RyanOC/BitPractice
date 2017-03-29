@@ -2,8 +2,11 @@
     <h1>Bit Practice</h1>
     <p class="lead">An easy way to practice repetitive actions using youtube videos</p>
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+
+    <p><a href="http://localhost:58327/#W3sic3RhcnRUaW1lMCI6IjI6MjcuMyJ9LHsiZW5kVGltZTAiOiIyOjM0LjEifSx7InN0YXJ0VGltZTEiOiIyOjM0LjAifSx7ImVuZFRpbWUxIjoiMjozOS4wIn0seyJzdGFydFRpbWUyIjoiMDowMCJ9LHsiZW5kVGltZTIiOiIwOjAwIn0seyJzdGFydFRpbWUzIjoiMDowMCJ9LHsiZW5kVGltZTMiOiIwOjAwIn0seyJzdGFydFRpbWU0IjoiMDowMCJ9LHsiZW5kVGltZTQiOiIwOjAwIn0seyJzdGFydFRpbWU1IjoiMDowMCJ9LHsiZW5kVGltZTUiOiIwOjAwIn0seyJzdGFydFRpbWU2IjoiMDowMCJ9LHsiZW5kVGltZTYiOiIwOjAwIn0seyJzdGFydFRpbWU3IjoiMDowMCJ9LHsiZW5kVGltZTciOiIwOjAwIn0seyJ2aWRlb2lkIjoiMm9tOUhrWjg5RzQifSx7InRpdGxlIjoiTXkgVGl0bGUifV0=">Test Practice URL With Saved State</a></p>
+
 </div>
-<div class="row">
+<div id="form" class="row">
     @*<div class="col-md-4">
             <h2>Getting started</h2>
             <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
@@ -26,85 +29,83 @@
         <div class="panel panel-default">
             <div class="panel-heading">Bits</div>
 
-
-
             <div class="panel-body">
 
                 <div id="bit1" class="input-group control-group after-add-more bitSelector">
                     
                     <div class="col-sm-6">
                         <div class="activeStatus activeFont"></div>
-                        <input id="startTime" type="text" name="addmore[]" class="form-control" placeholder="Start" value="2:27.3">
+                        <input id="startTime0" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
                     </div>
                     <div class="col-sm-6">
-                        <input id="endTime" type="text" name="addmore[]" class="form-control" placeholder="End" value="2:34.1">
+                        <input id="endTime0" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
                     </div>
                 </div>
 
                 <div id="bit2" class="input-group control-group after-add-more bitSelector">
                     <div class="col-sm-6">
                         <div class="activeStatus inactiveFont"></div>
-                        <input id="startTime" type="text" name="addmore[]" class="form-control" placeholder="Start" value="2:34.0">
+                        <input id="startTime1" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
                     </div>
                     <div class="col-sm-6">
-                        <input id="endTime" type="text" name="addmore[]" class="form-control" placeholder="End" value="2:39.0">
+                        <input id="endTime1" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
                     </div>
                 </div>
 
                 <div id="bit3" class="input-group control-group after-add-more bitSelector">
                     <div class="col-sm-6">
                         <div class="activeStatus inactiveFont"></div>
-                        <input id="rootStart" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
+                        <input id="startTime2" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
                     </div>
                     <div class="col-sm-6">
-                        <input id="rootEnd" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
+                        <input id="endTime2" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
                     </div>
                 </div>
 
                 <div id="bit4" class="input-group control-group after-add-more bitSelector">
                     <div class="col-sm-6">
                         <div class="activeStatus inactiveFont"></div>
-                        <input id="rootStart" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
+                        <input id="startTime3" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
                     </div>
                     <div class="col-sm-6">
-                        <input id="rootEnd" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
+                        <input id="endTime3" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
                     </div>
                 </div>
 
                 <div id="bit5" class="input-group control-group after-add-more bitSelector">
                     <div class="col-sm-6">
                         <div class="activeStatus inactiveFont"></div>
-                        <input id="rootStart" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
+                        <input id="startTime4" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
                     </div>
                     <div class="col-sm-6">
-                        <input id="rootEnd" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
+                        <input id="endTime4" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
                     </div>
                 </div>
                 <div id="bit6" class="input-group control-group after-add-more bitSelector">
                     <div class="col-sm-6">
                         <div class="activeStatus inactiveFont"></div>
-                        <input id="rootStart" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
+                        <input id="startTime5" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
                     </div>
                     <div class="col-sm-6">
-                        <input id="rootEnd" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
+                        <input id="endTime5" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
                     </div>
                 </div>
                 <div id="bit7" class="input-group control-group after-add-more bitSelector">
                     <div class="col-sm-6">
                         <div class="activeStatus inactiveFont"></div>
-                        <input id="rootStart" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
+                        <input id="startTime6" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
                     </div>
                     <div class="col-sm-6">
-                        <input id="rootEnd" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
+                        <input id="endTime6" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
                     </div>
                 </div>
                 <div id="bit8" class="input-group control-group after-add-more bitSelector">
                     <div class="col-sm-6">
                         <div class="activeStatus inactiveFont"></div>
-                        <input id="rootStart" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
+                        <input id="startTime7" type="text" name="addmore[]" class="form-control" placeholder="Start" value="0:00">
                     </div>
                     <div class="col-sm-6">
-                        <input id="rootEnd" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
+                        <input id="endTime7" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
                     </div>
                 </div>
 
@@ -118,9 +119,9 @@
             <div class="panel-heading">Practice</div>
             <div class="panel-body">
                 YouTube Video Id:
-                <input type="text" id="videoid" value="2om9HkZ89G4" size="10" /><br />
+                <input type="text" id="videoid" value="" size="10" /><br />
                 Title:
-                <input type="text" id="title" value="My Title" size="10" />
+                <input type="text" id="title" value="" size="10" />
                 <a href="#" id="seek" onclick="javascript:SetVideoId();">set</a><br />
                 <div id="player"></div><br />
                 Current Seconds: <span id="currentSeconds"></span><br>
