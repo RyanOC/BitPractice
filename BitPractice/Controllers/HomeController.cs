@@ -14,5 +14,12 @@ namespace BitPractice.Controllers
 
             return View();
         }
+
+        public ActionResult Help()
+        {
+            ViewBag.Title = "Help Page";
+
+            return View();
+        }
     }
 }

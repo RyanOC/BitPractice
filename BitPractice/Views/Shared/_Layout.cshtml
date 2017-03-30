@@ -26,7 +26,7 @@
             </div>*@
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content" style="min-width:768px !important;">
         @RenderBody()
         <hr />
         <footer>
@@ -37,7 +37,6 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/bitpractice")
     @RenderSection("scripts", required: false)
-
 
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
