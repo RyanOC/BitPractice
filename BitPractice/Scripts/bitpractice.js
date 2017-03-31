@@ -1,4 +1,11 @@
-﻿var tag = document.createElement('script');
+﻿
+//TODO: allow full youtube urls http://stackoverflow.com/a/8260383/1486716
+//TODO: add play/pause button
+//TODO: add default video
+
+//Youtube api reference: https://developers.google.com/youtube/iframe_api_reference#Events
+
+var tag = document.createElement('script');
 tag.src = "https://www.youtube.com/player_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
@@ -6,7 +13,6 @@ var player, startTime, endTime, timeInterval, vid;
 var bitStart = '0:00'; //$("#startTime0").val();
 var bitEnd = '0:00'; //$("#endTime0").val();
 
-//Youtube api reference: https://developers.google.com/youtube/iframe_api_reference#Events
 function onYouTubePlayerAPIReady() {
     player = new YT.Player('player', {
         height: '200',
@@ -92,21 +98,14 @@ function LoadState() {
 
     var formData = JSON.parse(decodedString);
 
-    console.log(formData);
-
-    //TODO: load inputs with decoded hash object values
+    //console.log(formData);
 
     for (var i = 0, len = formData.length; i < len; i++) {
 
         var key = Object.keys(formData[i])[0];
         var value = Object.values(formData[i])[0];
-
-        //console.log(key + ":" + value);
-
         $("#" + key).val(value)
-
     }
-
 }
 
 function SaveState() {
@@ -132,11 +131,9 @@ function SaveState() {
         window.location.hash = e;
     }, 1, encodedString);
 
-
     //window.location.hash = '' + encodedString;
     //var hash = window.location.hash.substr(1);
-    //console.log(hash);
-    
+    //console.log(hash);  
 }
 
 $(window).load(function () {
@@ -180,6 +177,14 @@ $('.bitSelector').click(
         player.seekTo(startTime);
     });
 
+$("#dropdownMenu2").on("click", "li a", function (e) {
+    e.preventDefault;
+    var speedText = $(this).text();
+    $("#dropdown_title2").html(speedText);
+    var speedData = $(this).data("speed");
+    player.setPlaybackRate(speedData);  
+});
+
 $(document).ready(function () {
     $('input').on('click', function () {
         return false;
@@ -187,14 +192,10 @@ $(document).ready(function () {
 
     if (window.location.hash.substr(1).length > 0){
         LoadState();
-
         bitStart = $("#startTime0").val();
         bitEnd = $("#endTime0").val();
-
-
     }
 });
-
 
 function locationHashChanged() {
     if (window.location.hash.substr(1).length > 0) {
@@ -205,13 +206,10 @@ function locationHashChanged() {
         //TODO: start video...
 
         SetVideoId();
-
-
     }
 }
 
 window.onhashchange = locationHashChanged;
-
 
 var Base64 = {
     _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",

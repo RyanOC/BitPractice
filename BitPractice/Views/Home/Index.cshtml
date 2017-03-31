@@ -79,8 +79,28 @@
                             <input id="endTime7" type="text" name="addmore[]" class="form-control" placeholder="End" value="0:00">
                         </div>
                     </div>
-                    <a href="#" class="btn btn-primary btn-sm bottomResetButton" id="seek" onclick="javascript:reset();">reset</a>
-                    <a href="#" class="btn btn-primary btn-sm bottomResetButton save" id="save">save</a>
+                    <div class="input-group control-group" style="margin:25px 0px 20px 20px">
+                        <div class="col-xs-4">
+                            <label for="dropdownMenu2">Speed:</label>
+                            <div class="dropdown" id="dropdownMenu2">
+                                <button class="btn btn-default" data-toggle="dropdown">
+                                    <span id="dropdown_title2">Select</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a data-speed="0.25" tabindex="-1">.25</a></li>
+                                    <li><a data-speed="0.5" tabindex="-1">.5</a></li>
+                                    <li><a data-speed="1" tabindex="-1">Normal</a></li>
+                                    <li><a data-speed="1.5" tabindex="-1">1.5</a></li>
+                                    <li><a data-speed="2.0" tabindex="-1">2.0</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xs-8" style="margin:7px 0px 0px 0px">
+                            <a href="#" class="btn btn-primary btn-sm bottomResetButton" id="seek" onclick="javascript:reset();">reset</a>
+                            <a href="#" class="btn btn-primary btn-sm bottomResetButton save" id="save">save</a>
+                        </div>
+                    </div>   
                 </div>
             </div>
         </div>
