@@ -12,6 +12,7 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player, startTime, endTime, timeInterval, vid;
 var bitStart = '0:00'; //$("#startTime0").val();
 var bitEnd = '0:00'; //$("#endTime0").val();
+var currentBits;
 
 function onYouTubePlayerAPIReady() {
     player = new YT.Player('player', {
@@ -106,13 +107,16 @@ function LoadState() {
         var value = Object.values(formData[i])[0];
         $("#" + key).val(value)
     }
+
+    document.title = "BitPractice-" + $("#title").val();
 }
 
 function SaveState() {
 
     //TODO: save previous state in history https://developer.mozilla.org/en-US/docs/Web/API/History_API
-
     //var form1 = $("#form :input");
+
+    document.title = "BitPractice-" + $("#title").val();
 
     var formData = [];
 
@@ -161,8 +165,9 @@ $('.bitSelector').click(
             return;
         }
         else {
-            startTime = convertTime($(inputs[0]).val());
-            endTime = convertTime($(inputs[1]).val());
+            currentBits = $(this).find("input");
+            startTime = convertTime($(currentBits[0]).val());
+            endTime = convertTime($(currentBits[1]).val());
         }
 
         $('.highlight').removeClass('highlight');
@@ -200,8 +205,16 @@ $(document).ready(function () {
 function locationHashChanged() {
     if (window.location.hash.substr(1).length > 0) {
         LoadState();
-        bitStart = $("#startTime0").val();
-        bitEnd = $("#endTime0").val();
+
+        if (currentBits != null) {
+            console.log(currentBits);
+            bitStart = $(currentBits[0]).val();
+            bitEnd = $(currentBits[1]).val();
+        }
+        else {
+            bitStart = $("#startTime0").val();
+            bitEnd = $("#endTime0").val();
+        }
 
         //TODO: start video...
 
