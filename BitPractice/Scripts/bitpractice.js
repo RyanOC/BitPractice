@@ -10,8 +10,8 @@ tag.src = "https://www.youtube.com/player_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player, startTime, endTime, timeInterval, vid;
-var bitStart = '0:00'; //$("#startTime0").val();
-var bitEnd = '0:00'; //$("#endTime0").val();
+var bitStart = '0:00';
+var bitEnd = '0:00';
 var currentBits;
 
 function onYouTubePlayerAPIReady() {
@@ -93,15 +93,16 @@ function reset() {
     window.location.hash = '';
     startTime = convertTime($("#startTime").val());
     endTime = convertTime($("#endTime").val());
-    player.seekTo(startTime); //parseFloat($("#seekto").val()));
+    player.seekTo(startTime);
+
 }
 
 function LoadState() {
 
     var hash = window.location.hash.substr(1);
     var BitPracticeModel = decodeURI(hash);
-    BitPracticeModel = JSON.parse(BitPracticeModel);
 
+    BitPracticeModel = parseParams(BitPracticeModel);
     console.log(BitPracticeModel);
 
     //get t & v from querystring...
@@ -126,7 +127,6 @@ function SaveState() {
     document.title = "BitPractice-" + $("#title").val();
 
     var BitPracticeModel = {};
-
     var title = $("#title").val();
     var vid = $("#videoid").val();
 
@@ -139,15 +139,12 @@ function SaveState() {
         }        
     });
 
-    var json = encodeURI(JSON.stringify(BitPracticeModel));
-
-    json = json.replace(/%7B/g, '{')
-    json = json.replace(/%7D/g, '}')
+    var json = $.param(BitPracticeModel);
+    json = json.replace(/%3A/g, ':')
 
     setTimeout(function (e) {
         window.location.hash = e;
     }, 1, json);
-
 
     var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?v=' + vid + '&t=' + title;
     window.history.pushState({ path: newurl }, '', newurl);
@@ -227,12 +224,10 @@ $(document).ready(function () {
     else {
         //set dfault video instructions...
         $("#videoid").val("CcGoYPR9FBk");
-        //$("#e0").val("0:00"); //set default end time so something will play
         setTimeout(function () {
             SaveState();
+            player.stopVideo();
         }, 1000);
-
-        // 15eu7ar5EKM
     }
 });
 
@@ -283,4 +278,14 @@ function youtube_parser(url) {
     else {
         return url;
     }
+}
+
+function parseParams(str) {
+    return str.split('&').reduce(function (params, param) {
+        var paramSplit = param.split('=').map(function (value) {
+            return decodeURIComponent(value.replace('+', ' '));
+        });
+        params[paramSplit[0]] = paramSplit[1];
+        return params;
+    }, {});
 }
