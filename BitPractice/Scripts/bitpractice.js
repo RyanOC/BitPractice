@@ -203,6 +203,27 @@ $("#dropdownMenu2").on("click", "li a", function (e) {
     player.setPlaybackRate(speedData);  
 });
 
+
+
+
+//$("#videoid").change(function () {
+//    alert("Handler for .change() called.");
+//});
+
+$('#videoid').on('input', function (e) {
+    console.log(e);
+    var value = $('#videoid').val();
+
+    value = youtube_parser(value)
+
+    console.log(value);
+
+    $('#videoid').val(value);
+});
+
+
+
+
 $(document).ready(function () {
     $('input').on('click', function () {
         return false;
@@ -245,4 +266,10 @@ function getParameterByName(name, url) {
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function youtube_parser(url) {
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+    var match = url.match(regExp);
+    return (match && match[7].length == 11) ? match[7] : url;
 }
