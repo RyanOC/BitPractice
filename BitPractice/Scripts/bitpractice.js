@@ -99,16 +99,14 @@ function reset() {
 function LoadState() {
 
     var hash = window.location.hash.substr(1);
+    var BitPracticeModel = decodeURI(hash);
+    BitPracticeModel = JSON.parse(BitPracticeModel);
 
-    // Decode the String
-    var decodedString = Base64.decode(hash);
-    console.log(decodedString);
+    console.log(BitPracticeModel);
 
-    var BitPracticeModel = JSON.parse(decodedString);
-
-
-    $("#title").val(BitPracticeModel["t"]);
-    $("#videoid").val(BitPracticeModel["v"]);
+    //get t & v from querystring...
+    $("#title").val(getParameterByName('t'));
+    $("#videoid").val(getParameterByName('v'));
 
     for (var property in BitPracticeModel) {
         if (BitPracticeModel.hasOwnProperty(property)) {
@@ -124,19 +122,13 @@ function LoadState() {
 function SaveState() {
 
     //TODO: save previous state in history https://developer.mozilla.org/en-US/docs/Web/API/History_API
-    //var form1 = $("#form :input");
 
     document.title = "BitPractice-" + $("#title").val();
 
     var BitPracticeModel = {};
 
-
-    // add videoid and title seperatly...
     var title = $("#title").val();
     var vid = $("#videoid").val();
-    BitPracticeModel["t"] = title;
-    BitPracticeModel["v"] = vid;
-
 
     $("#bitTimes :input").each(function (index) {
         var key = $(this).attr('id');
@@ -147,17 +139,18 @@ function SaveState() {
         }        
     });
 
+    var json = encodeURI(JSON.stringify(BitPracticeModel));
 
-    // Encode the String
-    var encodedString = Base64.encode(JSON.stringify(BitPracticeModel));
+    json = json.replace(/%7B/g, '{')
+    json = json.replace(/%7D/g, '}')
 
     setTimeout(function (e) {
         window.location.hash = e;
-    }, 1, encodedString);
+    }, 1, json);
 
-    //window.location.hash = '' + encodedString;
-    //var hash = window.location.hash.substr(1);
-    //console.log(hash);  
+
+    var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?v=' + vid + '&t=' + title;
+    window.history.pushState({ path: newurl }, '', newurl);
 }
 
 $(window).load(function () {
@@ -244,93 +237,12 @@ function locationHashChanged() {
 
 window.onhashchange = locationHashChanged;
 
-var Base64 = {
-    _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
-    encode: function (e) {
-        var t = "";
-        var n, r, i, s, o, u, a;
-        var f = 0;
-        e = Base64._utf8_encode(e);
-        while (f < e.length) {
-            n = e.charCodeAt(f++);
-            r = e.charCodeAt(f++);
-            i = e.charCodeAt(f++);
-            s = n >> 2;
-            o = (n & 3) << 4 | r >> 4;
-            u = (r & 15) << 2 | i >> 6;
-            a = i & 63;
-            if (isNaN(r)) {
-                u = a = 64
-            } else if (isNaN(i)) {
-                a = 64
-            }
-            t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a)
-        }
-        return t
-    },
-    decode: function (e) {
-        var t = "";
-        var n, r, i;
-        var s, o, u, a;
-        var f = 0;
-        e = e.replace(/[^A-Za-z0-9\+\/\=]/g, "");
-        while (f < e.length) {
-            s = this._keyStr.indexOf(e.charAt(f++));
-            o = this._keyStr.indexOf(e.charAt(f++));
-            u = this._keyStr.indexOf(e.charAt(f++));
-            a = this._keyStr.indexOf(e.charAt(f++));
-            n = s << 2 | o >> 4;
-            r = (o & 15) << 4 | u >> 2;
-            i = (u & 3) << 6 | a;
-            t = t + String.fromCharCode(n);
-            if (u != 64) {
-                t = t + String.fromCharCode(r)
-            }
-            if (a != 64) {
-                t = t + String.fromCharCode(i)
-            }
-        }
-        t = Base64._utf8_decode(t);
-        return t
-    },
-    _utf8_encode: function (e) {
-        e = e.replace(/\r\n/g, "\n");
-        var t = "";
-        for (var n = 0; n < e.length; n++) {
-            var r = e.charCodeAt(n);
-            if (r < 128) {
-                t += String.fromCharCode(r)
-            } else if (r > 127 && r < 2048) {
-                t += String.fromCharCode(r >> 6 | 192);
-                t += String.fromCharCode(r & 63 | 128)
-            } else {
-                t += String.fromCharCode(r >> 12 | 224);
-                t += String.fromCharCode(r >> 6 & 63 | 128);
-                t += String.fromCharCode(r & 63 | 128)
-            }
-        }
-        return t
-    },
-    _utf8_decode: function (e) {
-        var t = "";
-        var n = 0;
-        var r = c1 = c2 = 0;
-        while (n < e.length) {
-            r = e.charCodeAt(n);
-            if (r < 128) {
-                t += String.fromCharCode(r);
-                n++
-            } else if (r > 191 && r < 224) {
-                c2 = e.charCodeAt(n + 1);
-                t += String.fromCharCode((r & 31) << 6 | c2 & 63);
-                n += 2
-            } else {
-                c2 = e.charCodeAt(n + 1);
-                c3 = e.charCodeAt(n + 2);
-                t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63);
-                n += 3
-            }
-        }
-        return t
-    }
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
