@@ -10,14 +10,14 @@ namespace BitPractice.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "PitPractice - Home";
 
             return View();
         }
 
         public ActionResult Help()
         {
-            ViewBag.Title = "Help Page";
+            ViewBag.Title = "BitPractice - Help";
 
             return View();
         }

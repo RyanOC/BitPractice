@@ -97,15 +97,14 @@ function LoadState() {
     var decodedString = Base64.decode(hash);
     console.log(decodedString);
 
-    var formData = JSON.parse(decodedString);
+    var BitPracticeModel = JSON.parse(decodedString);
 
-    //console.log(formData);
-
-    for (var i = 0, len = formData.length; i < len; i++) {
-
-        var key = Object.keys(formData[i])[0];
-        var value = Object.values(formData[i])[0];
-        $("#" + key).val(value)
+    for (var property in BitPracticeModel) {
+        if (BitPracticeModel.hasOwnProperty(property)) {
+            if (property != undefined) {
+                $("#" + property).val(BitPracticeModel[property]);
+            }      
+        }
     }
 
     document.title = "BitPractice-" + $("#title").val();
@@ -118,18 +117,17 @@ function SaveState() {
 
     document.title = "BitPractice-" + $("#title").val();
 
-    var formData = [];
+    var BitPracticeModel = {};
 
     $("#form :input").each(function (index) {
         var key = $(this).attr('id');
-        formData.push({ [key]: $(this).val() });
+        if (key != undefined) {
+            BitPracticeModel[key] = $(this).val();
+        }        
     });
 
-    //var form = { title: "Cool Video Title", videoId: "O8wwnhdkPE4", bits: [["2:00", "2:10"], ["3:00", "3:10"], ["4:00", "4:10"], ["5:00", "5:10"], ["6:00", "6:10"], ["7:00", "7:10"], ["8:00", "8:10"], ["9:00", "9:10"]] }
-    //TODO: build object from form inputs
-
     // Encode the String
-    var encodedString = Base64.encode(JSON.stringify(formData));
+    var encodedString = Base64.encode(JSON.stringify(BitPracticeModel));
 
     setTimeout(function (e) {
         window.location.hash = e;
