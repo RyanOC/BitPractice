@@ -203,13 +203,6 @@ $("#dropdownMenu2").on("click", "li a", function (e) {
     player.setPlaybackRate(speedData);  
 });
 
-
-
-
-//$("#videoid").change(function () {
-//    alert("Handler for .change() called.");
-//});
-
 $('#videoid').on('input', function (e) {
     console.log(e);
     var value = $('#videoid').val();
@@ -221,9 +214,6 @@ $('#videoid').on('input', function (e) {
     $('#videoid').val(value);
 });
 
-
-
-
 $(document).ready(function () {
     $('input').on('click', function () {
         return false;
@@ -233,6 +223,16 @@ $(document).ready(function () {
         LoadState();
         bitStart = $("#s0").val();
         bitEnd = $("#e0").val();
+    }
+    else {
+        //set dfault video instructions...
+        $("#videoid").val("CcGoYPR9FBk");
+        //$("#e0").val("0:00"); //set default end time so something will play
+        setTimeout(function () {
+            SaveState();
+        }, 1000);
+
+        // 15eu7ar5EKM
     }
 });
 
@@ -271,5 +271,16 @@ function getParameterByName(name, url) {
 function youtube_parser(url) {
     var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
     var match = url.match(regExp);
-    return (match && match[7].length == 11) ? match[7] : url;
+
+    if (match && match[7].length == 11) {
+        $("#e0").val("0:05"); //set default end time so something will play
+        setTimeout(function() {
+            SaveState();
+        }, 1000);
+
+        return match[7];
+    }
+    else {
+        return url;
+    }
 }
