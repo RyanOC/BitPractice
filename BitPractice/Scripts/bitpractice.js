@@ -67,7 +67,14 @@ function GetTime() {
     }
 
     var current = player.getCurrentTime();
-    current = current.toFixed(2);
+
+    try {
+        current = current.toFixed(2);
+    }
+    catch (ex) {
+        console.log(ex);
+    }
+
     $('#currentSeconds').html(current);
     var minutes = Math.floor(current / 60);
     var seconds = current % 60;
@@ -99,6 +106,10 @@ function LoadState() {
 
     var BitPracticeModel = JSON.parse(decodedString);
 
+
+    $("#title").val(BitPracticeModel["t"]);
+    $("#videoid").val(BitPracticeModel["v"]);
+
     for (var property in BitPracticeModel) {
         if (BitPracticeModel.hasOwnProperty(property)) {
             if (property != undefined) {
@@ -119,12 +130,23 @@ function SaveState() {
 
     var BitPracticeModel = {};
 
-    $("#form :input").each(function (index) {
+
+    // add videoid and title seperatly...
+    var title = $("#title").val();
+    var vid = $("#videoid").val();
+    BitPracticeModel["t"] = title;
+    BitPracticeModel["v"] = vid;
+
+
+    $("#bitTimes :input").each(function (index) {
         var key = $(this).attr('id');
         if (key != undefined) {
-            BitPracticeModel[key] = $(this).val();
+            if ($(this).val() != "0:00") {
+                BitPracticeModel[key] = $(this).val();
+            }
         }        
     });
+
 
     // Encode the String
     var encodedString = Base64.encode(JSON.stringify(BitPracticeModel));
@@ -195,8 +217,8 @@ $(document).ready(function () {
 
     if (window.location.hash.substr(1).length > 0){
         LoadState();
-        bitStart = $("#startTime0").val();
-        bitEnd = $("#endTime0").val();
+        bitStart = $("#s0").val();
+        bitEnd = $("#e0").val();
     }
 });
 
@@ -205,13 +227,13 @@ function locationHashChanged() {
         LoadState();
 
         if (currentBits != null) {
-            console.log(currentBits);
+            //console.log(currentBits);
             bitStart = $(currentBits[0]).val();
             bitEnd = $(currentBits[1]).val();
         }
         else {
-            bitStart = $("#startTime0").val();
-            bitEnd = $("#endTime0").val();
+            bitStart = $("#s0").val();
+            bitEnd = $("#e0").val();
         }
 
         //TODO: start video...
